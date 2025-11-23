@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot - StudySaathi </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {}
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+  <!-- Include shared navigation -->
+  <div id="nav-container"></div>
+
+  <!-- Main content -->
+  <main class="md:ml-64 pt-16 min-h-screen flex flex-col">
+    <div class="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 flex flex-col">
+      <!-- Header -->
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Study Assistant</h1>
+        <p class="text-gray-600 dark:text-gray-400">Ask me anything about your studies!</p>
+      </div>
+
+      <!-- Chat Container -->
+      <div class="flex-1 bg-white dark:bg-gray-900 rounded-3xl shadow-lg p-6 mb-6 flex flex-col">
+        <div id="chat-messages" class="flex-1 overflow-y-auto space-y-4 mb-6 min-h-[400px]">
+          <!-- Welcome message -->
+          <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+              <span class="text-white font-bold">SA</span>
+            </div>
+            <div class="flex-1 bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-tl-none p-4">
+              <p class="text-gray-900 dark:text-white">
+                👋 Hello! I'm your Study Assistant. I can help you with:
+              </p>
+              <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300 list-disc list-inside">
+                <li>Study tips and techniques</li>
+                <li>Time management advice</li>
+                <li>Motivation and encouragement</li>
+                <li>Answer questions about your progress</li>
+              </ul>
+              <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                Just ask me anything!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="flex items-center space-x-3">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Type your message..."
+            onkeypress="if(event.key === 'Enter') chatManager.sendMessage()"
+            class="flex-1 px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          >
+          <button
+            onclick="chatManager.sendMessage()"
+            class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-medium hover:shadow-lg transition-all duration-300 tilt-hover"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Suggestions -->
+      <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-lg p-6">
+        <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Quick Questions</h2>
+        <div class="flex flex-wrap gap-2">
+          <button
+            onclick="chatManager.sendSuggestion('How can I stay focused while studying?')"
+            class="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            Focus tips?
+          </button>
+          <button
+            onclick="chatManager.sendSuggestion('What is my current streak?')"
+            class="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            My streak?
+          </button>
+          <button
+            onclick="chatManager.sendSuggestion('How many tasks have I completed?')"
+            class="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            Tasks completed?
+          </button>
+          <button
+            onclick="chatManager.sendSuggestion('Motivate me to study!')"
+            class="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            Motivate me!
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/interactive.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    // Load navigation
+    fetch('components/shared-nav.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('nav-container').innerHTML = html;
+        const scripts = document.querySelectorAll('#nav-container script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          newScript.textContent = script.textContent;
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,9 @@
+# Assets Folder
+
+This folder is for storing optional assets like:
+- icons/
+- images/
+- lottie/ (for Lottie animations if needed)
+
+The app works without any assets in this folder - all icons are SVG inline.
+

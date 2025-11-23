@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes - StudySaathi </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {}
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+  <!-- Include shared navigation -->
+  <div id="nav-container"></div>
+
+  <!-- Main content -->
+  <main class="md:ml-64 pt-16 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Notes</h1>
+          <p class="text-gray-600 dark:text-gray-400">Capture and organize your thoughts</p>
+        </div>
+        <button
+          onclick="notesManager.createNote()"
+          class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-medium hover:shadow-lg transition-all duration-300 tilt-hover"
+        >
+          + New Note
+        </button>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="mb-8">
+        <div class="relative">
+          <input
+            type="text"
+            id="search-notes"
+            placeholder="Search notes..."
+            oninput="notesManager.searchNotes(this.value)"
+            class="w-full px-6 py-4 pl-12 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          >
+          <svg class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Notes Grid -->
+      <div id="notes-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Notes will be rendered here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Note Editor Modal -->
+  <div id="note-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50 p-4">
+    <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">New Note</h2>
+        <button
+          onclick="notesManager.closeModal()"
+          class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <input
+            type="text"
+            id="note-title"
+            placeholder="Note title..."
+            class="flex-1 px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-xl font-bold"
+          >
+          <button
+            onclick="notesManager.togglePin()"
+            id="pin-btn"
+            class="ml-4 p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            <svg id="pin-icon" class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+          </button>
+        </div>
+        
+        <textarea
+          id="note-content"
+          rows="15"
+          placeholder="Write your note here..."
+          class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+        ></textarea>
+        
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-800">
+          <button
+            onclick="notesManager.deleteNote()"
+            id="delete-note-btn"
+            class="px-4 py-2 rounded-xl bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-medium hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors hidden"
+          >
+            Delete
+          </button>
+          <div class="flex items-center space-x-3 ml-auto">
+            <button
+              onclick="notesManager.closeModal()"
+              class="px-6 py-2 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onclick="notesManager.saveNote()"
+              class="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:shadow-lg transition-all duration-300"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/interactive.js"></script>
+  <script src="js/notes.js"></script>
+  <script>
+    // Load navigation
+    fetch('components/shared-nav.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('nav-container').innerHTML = html;
+        const scripts = document.querySelectorAll('#nav-container script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          newScript.textContent = script.textContent;
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
+</body>
+</html>
+

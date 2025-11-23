@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breathing Exercises - StudySaathi </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {}
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+  <!-- Include shared navigation -->
+  <div id="nav-container"></div>
+
+  <!-- Main content -->
+  <main class="md:ml-64 pt-16 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Header -->
+      <div class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Breathing Exercises</h1>
+        <p class="text-gray-600 dark:text-gray-400">Take a moment to relax and breathe</p>
+      </div>
+
+      <!-- Breathing Animation Container -->
+      <div class="bg-gradient-to-br from-blue-400 to-purple-500 rounded-3xl p-8 md:p-12 mb-8 shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="relative z-10 text-center">
+          <!-- Breathing Circle -->
+          <div class="flex items-center justify-center mb-8">
+            <div id="breathing-circle" class="w-48 h-48 md:w-64 md:h-64 rounded-full bg-white bg-opacity-30 flex items-center justify-center transition-all duration-4000 ease-in-out">
+              <div class="w-40 h-40 md:w-56 md:h-56 rounded-full bg-white bg-opacity-50 flex items-center justify-center">
+                <div class="w-32 h-32 md:w-48 md:h-48 rounded-full bg-white flex items-center justify-center">
+                  <span id="breathing-text" class="text-2xl md:text-4xl font-bold text-blue-600">Breathe</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="text-white mb-8">
+            <p id="breathing-instruction" class="text-xl md:text-2xl font-medium mb-2">Get Ready</p>
+            <p class="text-sm md:text-base opacity-90">Follow the circle's rhythm</p>
+          </div>
+
+          <!-- Controls -->
+          <div class="flex justify-center items-center space-x-4">
+            <button
+              onclick="breathingManager.start()"
+              id="start-breathing-btn"
+              class="px-8 py-4 rounded-2xl bg-white text-blue-600 font-bold text-lg hover:shadow-xl transition-all duration-300 tilt-hover"
+            >
+              Start
+            </button>
+            <button
+              onclick="breathingManager.stop()"
+              id="stop-breathing-btn"
+              class="px-8 py-4 rounded-2xl bg-white bg-opacity-20 text-white font-bold text-lg hover:bg-opacity-30 transition-all duration-300 hidden"
+            >
+              Stop
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breathing Techniques -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Technique 1: Box Breathing -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 tilt-hover cursor-pointer" onclick="breathingManager.setTechnique('box')">
+          <div class="flex items-center space-x-4 mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+              <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Box Breathing</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">4-4-4-4 seconds</p>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">Inhale, hold, exhale, hold - each for 4 seconds. Perfect for focus and calm.</p>
+        </div>
+
+        <!-- Technique 2: 4-7-8 -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 tilt-hover cursor-pointer" onclick="breathingManager.setTechnique('478')">
+          <div class="flex items-center space-x-4 mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">4-7-8 Method</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">4-7-8 pattern</p>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">Inhale 4s, hold 7s, exhale 8s. Great for stress relief and sleep.</p>
+        </div>
+
+        <!-- Technique 3: Deep Breathing -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 tilt-hover cursor-pointer" onclick="breathingManager.setTechnique('deep')">
+          <div class="flex items-center space-x-4 mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+              <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Deep Breathing</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">5-5 seconds</p>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">Slow inhale and exhale for 5 seconds each. Simple and effective.</p>
+        </div>
+
+        <!-- Technique 4: Alternate Nostril -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 tilt-hover cursor-pointer" onclick="breathingManager.setTechnique('alternate')">
+          <div class="flex items-center space-x-4 mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center">
+              <svg class="w-6 h-6 text-pink-600 dark:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Alternate Nostril</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">6-6-6 pattern</p>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">Inhale 6s, hold 6s, exhale 6s. Balancing and energizing.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/interactive.js"></script>
+  <script src="js/breathing.js"></script>
+  <script>
+    // Load navigation
+    fetch('components/shared-nav.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('nav-container').innerHTML = html;
+        const scripts = document.querySelectorAll('#nav-container script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          newScript.textContent = script.textContent;
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
+</body>
+</html>
+

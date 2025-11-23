@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analytics - StudySaathi </title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/styles.css"/>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {} }
+    }
+  </script>
+</head>
+
+<body class="h-full bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+
+  <!-- NAV CONTAINER -->
+  <div id="nav-container"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="md:ml-64 pt-16 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <!-- HEADER -->
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          Analytics
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400">
+          Track your productivity and progress
+        </p>
+      </div>
+
+      <!-- STATS OVERVIEW -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+        <!-- Tasks -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h3 class="text-gray-500 dark:text-gray-400 text-sm mb-1">Tasks Completed</h3>
+          <p id="stat-tasks" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+        </div>
+
+        <!-- Study time -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h3 class="text-gray-500 dark:text-gray-400 text-sm mb-1">Study Time</h3>
+          <p id="stat-time" class="text-3xl font-bold text-gray-900 dark:text-white">0h</p>
+        </div>
+
+        <!-- Notes -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h3 class="text-gray-500 dark:text-gray-400 text-sm mb-1">Notes Created</h3>
+          <p id="stat-notes" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+        </div>
+
+        <!-- Sessions -->
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h3 class="text-gray-500 dark:text-gray-400 text-sm mb-1">Sessions</h3>
+          <p id="stat-sessions" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+        </div>
+
+      </div>
+
+      <!-- CHARTS -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h2 class="text-xl font-bold mb-4">Study Time This Week</h2>
+          <div class="h-[300px]">
+            <canvas id="study-time-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h2 class="text-xl font-bold mb-4">Task Completion</h2>
+          <div class="h-[300px]">
+            <canvas id="task-chart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h2 class="text-xl font-bold mb-4">Task Priority</h2>
+          <div class="h-[300px]">
+            <canvas id="task-priority-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+          <h2 class="text-xl font-bold mb-4">Task Status</h2>
+          <div class="h-[300px]">
+            <canvas id="task-status-chart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg mb-10">
+        <h2 class="text-xl font-bold mb-4">XP Progress</h2>
+        <div class="h-[200px]">
+          <canvas id="xp-chart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold mb-4">Recent Activity</h2>
+        <div id="activity-timeline" class="space-y-4"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/analytics.js"></script>
+
+  <script>
+    fetch('components/shared-nav.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('nav-container').innerHTML = html;
+
+        setTimeout(() => {
+          if (typeof refreshAnalytics === "function") {
+            refreshAnalytics(); // ✅ FORCE reflow after nav load
+          }
+        }, 400);
+      });
+  </script>
+</body>
+</html>

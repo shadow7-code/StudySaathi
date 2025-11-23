@@ -1,0 +1,225 @@
+<!-- Shared Navigation Bar -->
+<nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40 backdrop-blur-md bg-opacity-90 dark:bg-opacity-90">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Mobile menu button -->
+      <button id="nav-toggle" class="md:hidden p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl blur-sm opacity-75"></div>
+          <svg class="relative w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold text-gray-900 dark:text-white hidden sm:block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">StudySaathi</span>
+          <span class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">3.0</span>
+        </div>
+      </div>
+
+      <!-- Real-time Date & Time -->
+      <div class="hidden md:flex items-center space-x-4 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl border border-blue-200 dark:border-gray-600">
+        <div class="flex items-center space-x-2">
+          <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <div class="text-center">
+            <div id="real-time-date" class="text-sm font-bold text-gray-900 dark:text-white">Loading...</div>
+            <div id="real-time-time" class="text-xs text-blue-600 dark:text-blue-400 font-mono">00:00:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side actions -->
+      <div class="flex items-center space-x-2">
+        <!-- Theme toggle -->
+        <button id="theme-toggle" onclick="UI.toggleTheme()" class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110" title="Toggle theme">
+          <svg id="theme-icon-light" class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg id="theme-icon-dark" class="w-5 h-5 text-gray-600 dark:text-gray-300 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Shared Sidebar -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out pt-16">
+  <div class="flex flex-col h-full">
+    <!-- Close button for mobile -->
+    <div class="md:hidden flex justify-end p-4">
+      <button id="sidebar-close" class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation links -->
+    <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
+      <a href="index.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Dashboard</span>
+      </a>
+
+      <a href="tasks.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Tasks</span>
+      </a>
+
+      <a href="timer.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Timer</span>
+      </a>
+
+      <a href="breathing.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Breathing</span>
+      </a>
+
+      <a href="notes.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Notes</span>
+      </a>
+
+      <a href="exams.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Exams</span>
+      </a>
+
+      <a href="analytics.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Analytics</span>
+      </a>
+
+      <a href="chatbot.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Chatbot</span>
+      </a>
+
+      <a href="settings.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 group">
+        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span class="text-gray-700 dark:text-gray-300 font-medium">Settings</span>
+      </a>
+    </nav>
+
+    <!-- User stats in sidebar -->
+    <div class="p-4 border-t border-gray-200 dark:border-gray-800">
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Level</span>
+          <span id="sidebar-level" class="text-lg font-bold text-blue-600 dark:text-blue-400">1</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Streak</span>
+          <span id="sidebar-streak" class="text-lg font-bold text-purple-600 dark:text-purple-400">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+// Real-time Date & Time Updater
+function updateRealTime() {
+  const now = new Date();
+  
+  // Format date
+  const options = { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  const dateStr = now.toLocaleDateString('en-US', options);
+  
+  // Format time
+  const timeStr = now.toLocaleTimeString('en-US', { 
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+  
+  const dateEl = document.getElementById('real-time-date');
+  const timeEl = document.getElementById('real-time-time');
+  
+  if (dateEl) dateEl.textContent = dateStr;
+  if (timeEl) timeEl.textContent = timeStr;
+}
+
+// Update sidebar stats
+function updateSidebarStats() {
+  if (typeof Storage === 'undefined') {
+    setTimeout(updateSidebarStats, 100);
+    return;
+  }
+  
+  try {
+    const level = Storage.getLevel();
+    const streak = Storage.getDailyStreak();
+    const levelEl = document.getElementById('sidebar-level');
+    const streakEl = document.getElementById('sidebar-streak');
+    
+    if (levelEl) levelEl.textContent = level;
+    if (streakEl) streakEl.textContent = streak.current;
+  } catch (e) {
+    console.error('Error updating sidebar stats:', e);
+  }
+}
+
+// Highlight active nav link and update stats
+function initNavigation() {
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === currentPage) {
+      link.classList.add('bg-blue-50', 'dark:bg-gray-800', 'border-l-4', 'border-blue-500');
+    }
+  });
+  
+  updateSidebarStats();
+  
+  // Initialize real-time clock
+  updateRealTime();
+  setInterval(updateRealTime, 1000); // Update every second
+}
+
+// Run immediately if DOM is ready, otherwise wait
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initNavigation);
+} else {
+  initNavigation();
+}
+</script>
+
