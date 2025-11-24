@@ -24,17 +24,22 @@
       </div>
 
       <!-- Real-time Date & Time -->
-      <div class="hidden md:flex items-center space-x-4 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl border border-blue-200 dark:border-gray-600">
-        <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <div class="text-center">
-            <div id="real-time-date" class="text-sm font-bold text-gray-900 dark:text-white">Loading...</div>
-            <div id="real-time-time" class="text-xs text-blue-600 dark:text-blue-400 font-mono">00:00:00</div>
-          </div>
-        </div>
-      </div>
+      <!-- Dynamic Island -->
+<div class="hidden md:flex items-center space-x-3 px-6 py-3 
+  bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700
+  rounded-2xl border border-blue-200 dark:border-gray-600">
+
+  <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+  </svg>
+
+  <!-- date & time side-by-side -->
+  <div class="flex items-center space-x-4">
+    <div id="real-time-date" class="text-sm font-semibold text-gray-900 dark:text-white"></div>
+    <div id="real-time-time" class="text-sm text-blue-600 dark:text-blue-400 font-mono"></div>
+  </div>
+  
+</div>
 
       <!-- Right side actions -->
       <div class="flex items-center space-x-2">
@@ -149,32 +154,29 @@
 
 <script>
 // Real-time Date & Time Updater
-function updateRealTime() {
-  const now = new Date();
-  
-  // Format date
-  const options = { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  };
-  const dateStr = now.toLocaleDateString('en-US', options);
-  
-  // Format time
-  const timeStr = now.toLocaleTimeString('en-US', { 
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  });
-  
-  const dateEl = document.getElementById('real-time-date');
-  const timeEl = document.getElementById('real-time-time');
-  
-  if (dateEl) dateEl.textContent = dateStr;
-  if (timeEl) timeEl.textContent = timeStr;
+function updateDateTime() {
+    const now = new Date();
+
+    const date = now.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
+
+    const time = now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    });
+
+    document.getElementById("real-time-date").textContent = date;
+    document.getElementById("real-time-time").textContent = time;
 }
+
+setInterval(updateDateTime, 1000);
+updateDateTime();
 
 // Update sidebar stats
 function updateSidebarStats() {
