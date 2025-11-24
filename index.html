@@ -216,7 +216,7 @@
 
 
         <!-- Recent Activity -->
-        <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
+      <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg">
           <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Recent Activity</h2>
           <div id="recent-activity" class="space-y-4">
             <div class="flex items-center space-x-4 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800">
@@ -231,8 +231,27 @@
               </div>
             </div>
           </div>
+      </div>
+      <br>
+      <!-- Today's Progress -->
+      <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.01]">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">XP Progress</h2>
+        <div class="space-y-4">
+          <!-- XP Progress -->
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Level Progress</span>
+              <span id="xp-progress-text" class="text-sm text-gray-500 dark:text-gray-400">0 / 100</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden shadow-inner">
+              <div id="xp-progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
+            </div>
+          </div>
         </div>
       </div>
+      <br>
+
+        
 
       <!-- Today Target -->
       <div class="bg-gradient-to-br from-[#0f4c81]/80 to-[#3b82f6]/80 
@@ -275,8 +294,6 @@
 
       <!-- Analytics Overview -->
       <div class="bg-gradient-to-br from-[#0f1e40]/80 to-[#1c2a5a]/80 rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] mb-6 border border-white/10 backdrop-blur-sm
-
-
 
       ">
         <div class="flex items-center justify-between mb-6">
@@ -396,22 +413,6 @@
         </div>
       </div>
 
-      <!-- Today's Progress -->
-      <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.01]">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">XP Progress</h2>
-        <div class="space-y-4">
-          <!-- XP Progress -->
-          <div>
-            <div class="flex justify-between mb-2">
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Level Progress</span>
-              <span id="xp-progress-text" class="text-sm text-gray-500 dark:text-gray-400">0 / 100</span>
-            </div>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden shadow-inner">
-              <div id="xp-progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </main>
 
