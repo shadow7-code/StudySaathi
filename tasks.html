@@ -28,97 +28,138 @@
         <p class="text-gray-600 dark:text-gray-400">Organize your study tasks efficiently</p>
       </div>
 
-      <!-- Add Task Form -->
-      <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg mb-8">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Add New Task</h2>
-        <form id="add-task-form" class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Task Title *</label>
-            <input 
-              type="text" 
-              id="task-title" 
-              required
-              class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              placeholder="Enter task title..."
+      <!-- Add Task Button -->
+      <div class="mb-8">
+        <button 
+          id="open-task-modal"
+          class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-medium hover:shadow-lg transition-all duration-300 tilt-hover"
+        >
+           Add New Task
+        </button>
+      </div>
+
+      <!-- Modal Background -->
+      <div 
+        id="task-modal-overlay" 
+        class="hidden fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+      ></div>
+
+      <!-- Add Task Modal -->
+      <div 
+        id="task-modal" 
+        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300"
+      >
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Add New Task</h2>
+            <button 
+              id="close-task-modal"
+              class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
             >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
           </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
-            <textarea 
-              id="task-description" 
-              rows="3"
-              class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
-              placeholder="Enter task description (optional)..."
-            ></textarea>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <form id="add-task-form" class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Priority</label>
-              <select 
-                id="task-priority"
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Task Title *</label>
+              <input 
+                type="text" 
+                id="task-title" 
+                required
                 class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                placeholder="Enter task title..."
               >
-                <option value="low">Low</option>
-                <option value="medium" selected>Medium</option>
-                <option value="high">High</option>
-              </select>
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Due Date</label>
-              <input 
-                type="date" 
-                id="task-due-date"
-                class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              >
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+              <textarea 
+                id="task-description" 
+                rows="3"
+                class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                placeholder="Enter task description (optional)..."
+              ></textarea>
             </div>
-          </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Priority</label>
+                <select 
+                  id="task-priority"
+                  class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                >
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Due Date</label>
+                <input 
+                  type="date" 
+                  id="task-due-date"
+                  class="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                >
+              </div>
+            </div>
 
-          <!-- Category Selection -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Category</label>
-            <div class="grid grid-cols-3 gap-3">
-              <label class="category-option relative cursor-pointer">
-                <input type="radio" name="task-category" value="theory" id="category-theory" class="peer sr-only" checked>
-                <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-blue-500 dark:hover:border-blue-400 transition-all peer-checked:border-blue-500 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/30 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">
-                  <svg class="w-6 h-6 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                  <span class="text-sm font-medium">Theory</span>
-                </div>
-              </label>
-              
-              <label class="category-option relative cursor-pointer">
-                <input type="radio" name="task-category" value="lab" id="category-lab" class="peer sr-only">
-                <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-green-500 dark:hover:border-green-400 transition-all peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 peer-checked:text-green-600 dark:peer-checked:text-green-400">
-                  <svg class="w-6 h-6 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                  </svg>
-                  <span class="text-sm font-medium">Lab</span>
-                </div>
-              </label>
-              
-              <label class="category-option relative cursor-pointer">
-                <input type="radio" name="task-category" value="assignment" id="category-assignment" class="peer sr-only">
-                <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-purple-500 dark:hover:border-purple-400 transition-all peer-checked:border-purple-500 peer-checked:bg-purple-50 dark:peer-checked:bg-purple-900/30 peer-checked:text-purple-600 dark:peer-checked:text-purple-400">
-                  <svg class="w-6 h-6 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <span class="text-sm font-medium">Assignment</span>
-                </div>
-              </label>
+            <!-- Category Selection -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Category</label>
+              <div class="grid grid-cols-3 gap-3">
+                <label class="category-option relative cursor-pointer">
+                  <input type="radio" name="task-category" value="theory" id="category-theory" class="peer sr-only" checked>
+                  <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-blue-500 dark:hover:border-blue-400 transition-all peer-checked:border-blue-500 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/30 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">
+                    <svg class="w-6 h-6 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <span class="text-sm font-medium">Theory</span>
+                  </div>
+                </label>
+                
+                <label class="category-option relative cursor-pointer">
+                  <input type="radio" name="task-category" value="lab" id="category-lab" class="peer sr-only">
+                  <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-green-500 dark:hover:border-green-400 transition-all peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/30 peer-checked:text-green-600 dark:peer-checked:text-green-400">
+                    <svg class="w-6 h-6 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                    <span class="text-sm font-medium">Lab</span>
+                  </div>
+                </label>
+                
+                <label class="category-option relative cursor-pointer">
+                  <input type="radio" name="task-category" value="assignment" id="category-assignment" class="peer sr-only">
+                  <div class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-purple-500 dark:hover:border-purple-400 transition-all peer-checked:border-purple-500 peer-checked:bg-purple-50 dark:peer-checked:bg-purple-900/30 peer-checked:text-purple-600 dark:peer-checked:text-purple-400">
+                    <svg class="w-6 h-6 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span class="text-sm font-medium">Assignment</span>
+                  </div>
+                </label>
+              </div>
             </div>
-          </div>
-          
-          <button 
-            type="submit"
-            class="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-medium hover:shadow-lg transition-all duration-300 tilt-hover"
-          >
-            Add Task
-          </button>
-        </form>
+            
+            <div class="flex gap-3 pt-4">
+              <button 
+                type="submit"
+                class="flex-1 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-medium hover:shadow-lg transition-all duration-300"
+              >
+                Add Task
+              </button>
+              <button 
+                type="button"
+                id="cancel-task-modal"
+                class="px-8 py-3 bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white rounded-2xl font-medium hover:shadow-lg transition-all duration-300"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <!-- Filters -->
@@ -170,6 +211,46 @@
           document.body.appendChild(newScript);
         });
       });
+
+    // Modal functionality
+    const openBtn = document.getElementById('open-task-modal');
+    const closeBtn = document.getElementById('close-task-modal');
+    const cancelBtn = document.getElementById('cancel-task-modal');
+    const modal = document.getElementById('task-modal');
+    const overlay = document.getElementById('task-modal-overlay');
+    const form = document.getElementById('add-task-form');
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      overlay.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      form.reset();
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Prevent modal closing when clicking inside the modal content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
   </script>
   <style>
     .filter-btn.active {
@@ -179,4 +260,3 @@
   </style>
 </body>
 </html>
-
