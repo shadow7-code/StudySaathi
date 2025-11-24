@@ -1,4 +1,3 @@
-// Today Target feature for StudySaathi 3.0
 class TodayTarget {
   static getTarget() {
     const target = localStorage.getItem('studysaathi_today_target');

@@ -1,5 +1,3 @@
-// analytics.js - FINAL FIXED VERSION ✅
-
 const charts = {};
 
 /* ===== HELPERS ===== */
