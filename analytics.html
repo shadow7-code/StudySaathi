@@ -127,8 +127,19 @@
       .then(res => res.text())
       .then(html => {
         document.getElementById('nav-container').innerHTML = html;
-
+        // Load scripts after nav is loaded
+        const scripts = document.querySelectorAll('#nav-container script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          newScript.textContent = script.textContent;
+          document.body.appendChild(newScript);
+        });
+        // Re-initialize navbar and sidebar after loading
         setTimeout(() => {
+          if (typeof UI !== 'undefined') {
+            UI.initNavbar();
+            UI.initSidebar();
+          }
           if (typeof refreshAnalytics === "function") {
             refreshAnalytics(); // ✅ FORCE reflow after nav load
           }

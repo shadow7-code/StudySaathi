@@ -160,6 +160,13 @@
           newScript.textContent = script.textContent;
           document.body.appendChild(newScript);
         });
+        // Re-initialize navbar and sidebar after loading
+        setTimeout(() => {
+          if (typeof UI !== 'undefined') {
+            UI.initNavbar();
+            UI.initSidebar();
+          }
+        }, 150);
       });
   </script>
 </body>

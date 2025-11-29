@@ -1,54 +1,55 @@
 <!-- Shared Navigation Bar -->
 <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40 backdrop-blur-md bg-opacity-90 dark:bg-opacity-90">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14 sm:h-16 gap-2">
       <!-- Mobile menu button -->
-      <button id="nav-toggle" class="md:hidden p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-        <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button id="nav-toggle" class="md:hidden p-1.5 sm:p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
 
       <!-- Logo -->
-      <div class="flex items-center space-x-3">
-        <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+      <div class="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+        <div class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300 flex-shrink-0">
           <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl blur-sm opacity-75"></div>
-          <svg class="relative w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="relative w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
         </div>
-        <div class="flex flex-col">
-          <span class="text-xl font-bold text-gray-900 dark:text-white hidden sm:block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">StudySaathi</span>
+        <div class="flex flex-col min-w-0">
+          <span class="text-base sm:text-xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent truncate">StudySaathi</span>
           <span class="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">v1.1</span>
         </div>
       </div>
 
       <!-- Real-time Date & Time -->
-      <!-- Dynamic Island -->
-<div class="hidden md:flex items-center space-x-3 px-6 py-3 
-  bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700
-  rounded-2xl border border-blue-200 dark:border-gray-600">
+      <!-- Dynamic Island - Mobile Compact / Desktop Full -->
+      <div id="dynamic-island" class="flex items-center space-x-1 sm:space-x-2 md:space-x-3 px-2 sm:px-3 md:px-6 py-1.5 sm:py-2 md:py-3 
+        bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700
+        rounded-xl md:rounded-2xl border border-blue-200 dark:border-gray-600 flex-shrink-0 mx-1 sm:mx-2
+        transition-all duration-300 ease-in-out cursor-pointer md:cursor-default">
 
-  <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-  </svg>
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
 
-  <!-- date & time side-by-side -->
-  <div class="flex items-center space-x-4">
-    <div id="real-time-date" class="text-sm font-semibold text-gray-900 dark:text-white"></div>
-    <div id="real-time-time" class="text-sm text-blue-600 dark:text-blue-400 font-mono"></div>
-  </div>
-  
-</div>
+        <!-- Mobile: Time only (expandable), Desktop: Date & Time -->
+        <div class="flex items-center space-x-1 sm:space-x-2 md:space-x-4 overflow-hidden">
+          <div id="real-time-date" class="hidden sm:block text-xs sm:text-sm font-semibold text-gray-900 dark:text-white whitespace-nowrap"></div>
+          <div id="real-time-date-mobile" class="md:hidden text-[10px] sm:text-xs font-semibold text-gray-900 dark:text-white whitespace-nowrap max-w-0 overflow-hidden transition-all duration-300 ease-in-out opacity-0"></div>
+          <div id="real-time-time" class="text-xs sm:text-sm md:text-sm text-blue-600 dark:text-blue-400 font-mono whitespace-nowrap"></div>
+        </div>
+      </div>
 
       <!-- Right side actions -->
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
         <!-- Theme toggle -->
-        <button id="theme-toggle" onclick="UI.toggleTheme()" class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110" title="Toggle theme">
-          <svg id="theme-icon-light" class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button id="theme-toggle" onclick="UI.toggleTheme()" class="p-1.5 sm:p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hover:scale-110" title="Toggle theme">
+          <svg id="theme-icon-light" class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
-          <svg id="theme-icon-dark" class="w-5 h-5 text-gray-600 dark:text-gray-300 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg id="theme-icon-dark" class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         </button>
@@ -157,11 +158,19 @@
 function updateDateTime() {
     const now = new Date();
 
+    // Full date for desktop
     const date = now.toLocaleDateString("en-US", {
         weekday: "long",
         month: "long",
         day: "numeric",
         year: "numeric"
+    });
+
+    // Shorter date format for mobile
+    const dateMobile = now.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
     });
 
     const time = now.toLocaleTimeString("en-US", {
@@ -171,12 +180,72 @@ function updateDateTime() {
         hour12: true
     });
 
-    document.getElementById("real-time-date").textContent = date;
-    document.getElementById("real-time-time").textContent = time;
+    const dateEl = document.getElementById("real-time-date");
+    const dateMobileEl = document.getElementById("real-time-date-mobile");
+    const timeEl = document.getElementById("real-time-time");
+    
+    if (dateEl) dateEl.textContent = date;
+    if (dateMobileEl) dateMobileEl.textContent = dateMobile;
+    if (timeEl) timeEl.textContent = time;
 }
 
 setInterval(updateDateTime, 1000);
 updateDateTime();
+
+// Mobile Dynamic Island Expand/Collapse
+function initDynamicIsland() {
+    const dynamicIsland = document.getElementById('dynamic-island');
+    const dateMobileEl = document.getElementById('real-time-date-mobile');
+    
+    if (!dynamicIsland || !dateMobileEl) {
+      setTimeout(() => initDynamicIsland(), 100);
+      return;
+    }
+    
+    // Only enable on mobile devices
+    const isMobile = () => window.innerWidth < 768;
+    
+    // Toggle expansion
+    const toggleExpansion = (expand) => {
+        if (expand) {
+            dynamicIsland.classList.add('expanded');
+            dateMobileEl.style.maxWidth = '150px';
+            dateMobileEl.style.marginRight = '6px';
+            dateMobileEl.style.opacity = '1';
+        } else {
+            dynamicIsland.classList.remove('expanded');
+            dateMobileEl.style.maxWidth = '0';
+            dateMobileEl.style.marginRight = '0';
+            dateMobileEl.style.opacity = '0';
+        }
+    };
+    
+    if (isMobile()) {
+        dynamicIsland.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isExpanded = dynamicIsland.classList.contains('expanded');
+            toggleExpansion(!isExpanded);
+        });
+        
+        // Close when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            if (!dynamicIsland.contains(e.target) && dynamicIsland.classList.contains('expanded')) {
+                toggleExpansion(false);
+            }
+        });
+    }
+    
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (!isMobile() && dynamicIsland.classList.contains('expanded')) {
+                toggleExpansion(false);
+            }
+        }, 100);
+    });
+}
 
 // Update sidebar stats
 function updateSidebarStats() {
@@ -213,15 +282,19 @@ function initNavigation() {
   updateSidebarStats();
   
   // Initialize real-time clock
-  updateRealTime();
-  setInterval(updateRealTime, 1000); // Update every second
+  updateDateTime();
+  setInterval(updateDateTime, 1000); // Update every second
 }
 
 // Run immediately if DOM is ready, otherwise wait
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initNavigation);
+  document.addEventListener('DOMContentLoaded', () => {
+    initNavigation();
+    initDynamicIsland();
+  });
 } else {
   initNavigation();
+  initDynamicIsland();
 }
 </script>
 

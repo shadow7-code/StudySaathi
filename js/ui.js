@@ -39,12 +39,41 @@ class UI {
     const navToggle = document.getElementById('nav-toggle');
     const sidebar = document.getElementById('sidebar');
     
-    if (navToggle) {
-      navToggle.addEventListener('click', () => {
-        sidebar?.classList.toggle('translate-x-0');
-        sidebar?.classList.toggle('-translate-x-full');
-      });
+    if (!navToggle || !sidebar) {
+      // Retry after a short delay if elements aren't ready
+      setTimeout(() => this.initNavbar(), 100);
+      return;
     }
+    
+    // Remove any existing listeners by cloning
+    const newNavToggle = navToggle.cloneNode(true);
+    navToggle.parentNode.replaceChild(newNavToggle, navToggle);
+    
+    newNavToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const sidebar = document.getElementById('sidebar');
+      if (!sidebar) return;
+      
+      const isOpen = sidebar.classList.contains('translate-x-0');
+      
+      if (isOpen) {
+        // Close sidebar
+        sidebar.classList.remove('translate-x-0');
+        sidebar.classList.add('-translate-x-full');
+        document.body.classList.remove('sidebar-open');
+        document.body.style.overflow = '';
+      } else {
+        // Open sidebar
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+        if (window.innerWidth < 768) {
+          document.body.classList.add('sidebar-open');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+    });
   }
 
   // Sidebar
@@ -52,24 +81,42 @@ class UI {
     const sidebarClose = document.getElementById('sidebar-close');
     const sidebar = document.getElementById('sidebar');
     
+    if (!sidebar) {
+      setTimeout(() => this.initSidebar(), 100);
+      return;
+    }
+    
+    const closeSidebar = () => {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.classList.remove('translate-x-0');
+      document.body.classList.remove('sidebar-open');
+      document.body.style.overflow = '';
+    };
+    
     if (sidebarClose) {
-      sidebarClose.addEventListener('click', () => {
-        sidebar?.classList.add('-translate-x-full');
-        sidebar?.classList.remove('translate-x-0');
+      const newSidebarClose = sidebarClose.cloneNode(true);
+      sidebarClose.parentNode.replaceChild(newSidebarClose, sidebarClose);
+      
+      newSidebarClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeSidebar();
       });
     }
 
     // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', (e) => {
+    const handleOutsideClick = (e) => {
       if (window.innerWidth < 768) {
         if (sidebar && !sidebar.contains(e.target) && 
             !e.target.closest('#nav-toggle') && 
             sidebar.classList.contains('translate-x-0')) {
-          sidebar.classList.add('-translate-x-full');
-          sidebar.classList.remove('translate-x-0');
+          closeSidebar();
         }
       }
-    });
+    };
+    
+    // Use capture phase to catch clicks early
+    document.addEventListener('click', handleOutsideClick, true);
   }
 
   // Toast notifications
