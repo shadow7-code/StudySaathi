@@ -45,11 +45,14 @@ class UI {
       return;
     }
     
-    // Remove any existing listeners by cloning
-    const newNavToggle = navToggle.cloneNode(true);
-    navToggle.parentNode.replaceChild(newNavToggle, navToggle);
+    // Prevent multiple initializations
+    if (navToggle.dataset.initialized === 'true') {
+      return;
+    }
+    navToggle.dataset.initialized = 'true';
     
-    newNavToggle.addEventListener('click', function(e) {
+    // Use requestAnimationFrame for smooth animations
+    const toggleSidebar = (e) => {
       e.preventDefault();
       e.stopPropagation();
       
@@ -58,22 +61,35 @@ class UI {
       
       const isOpen = sidebar.classList.contains('translate-x-0');
       
-      if (isOpen) {
-        // Close sidebar
-        sidebar.classList.remove('translate-x-0');
-        sidebar.classList.add('-translate-x-full');
-        document.body.classList.remove('sidebar-open');
-        document.body.style.overflow = '';
-      } else {
-        // Open sidebar
-        sidebar.classList.remove('-translate-x-full');
-        sidebar.classList.add('translate-x-0');
-        if (window.innerWidth < 768) {
-          document.body.classList.add('sidebar-open');
-          document.body.style.overflow = 'hidden';
+      // Use requestAnimationFrame for smooth transition
+      requestAnimationFrame(() => {
+        if (isOpen) {
+          // Close sidebar
+          sidebar.classList.remove('translate-x-0');
+          sidebar.classList.add('-translate-x-full');
+          if (window.innerWidth < 768) {
+            document.body.classList.remove('sidebar-open');
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+          }
+        } else {
+          // Open sidebar
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
+          if (window.innerWidth < 768) {
+            document.body.classList.add('sidebar-open');
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.height = '100%';
+          }
         }
-      }
-    });
+      });
+    };
+    
+    navToggle.addEventListener('click', toggleSidebar, { passive: false });
   }
 
   // Sidebar
@@ -86,25 +102,42 @@ class UI {
       return;
     }
     
+    // Prevent multiple initializations
+    if (sidebar.dataset.initialized === 'true') {
+      return;
+    }
+    sidebar.dataset.initialized = 'true';
+    
     const closeSidebar = () => {
-      sidebar.classList.add('-translate-x-full');
-      sidebar.classList.remove('translate-x-0');
-      document.body.classList.remove('sidebar-open');
-      document.body.style.overflow = '';
+      requestAnimationFrame(() => {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        if (window.innerWidth < 768) {
+          document.body.classList.remove('sidebar-open');
+          document.body.style.overflow = '';
+          document.body.style.position = '';
+          document.body.style.width = '';
+          document.body.style.height = '';
+        }
+      });
     };
     
     if (sidebarClose) {
-      const newSidebarClose = sidebarClose.cloneNode(true);
-      sidebarClose.parentNode.replaceChild(newSidebarClose, sidebarClose);
+      // Prevent multiple listeners
+      if (sidebarClose.dataset.initialized === 'true') {
+        return;
+      }
+      sidebarClose.dataset.initialized = 'true';
       
-      newSidebarClose.addEventListener('click', (e) => {
+      sidebarClose.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         closeSidebar();
-      });
+      }, { passive: false });
     }
 
     // Close sidebar when clicking outside on mobile
+    let outsideClickHandler = null;
     const handleOutsideClick = (e) => {
       if (window.innerWidth < 768) {
         if (sidebar && !sidebar.contains(e.target) && 
@@ -115,8 +148,11 @@ class UI {
       }
     };
     
-    // Use capture phase to catch clicks early
-    document.addEventListener('click', handleOutsideClick, true);
+    // Only add listener once
+    if (!document.body.dataset.sidebarListenerAdded) {
+      document.body.dataset.sidebarListenerAdded = 'true';
+      document.addEventListener('click', handleOutsideClick, true);
+    }
   }
 
   // Toast notifications

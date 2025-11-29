@@ -10,11 +10,25 @@
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
 /* Custom scrollbar */
@@ -356,6 +370,20 @@ select:focus {
   .mobile-hide {
     display: none;
   }
+  
+  /* Prevent horizontal overflow on all containers */
+  * {
+    max-width: 100%;
+  }
+  
+  /* Ensure containers don't exceed viewport */
+  .max-w-7xl,
+  .max-w-4xl,
+  .max-w-6xl {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 /* Enhanced button hover effects */
@@ -427,10 +455,28 @@ button, a, input, textarea, select {
 @media (max-width: 767px) {
   #sidebar {
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   
   body.sidebar-open {
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  main {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure nav doesn't cause overflow */
+  nav {
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
 
@@ -442,5 +488,23 @@ button, a, input, textarea, select {
 
 .feature-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prevent horizontal overflow globally */
+#nav-container,
+nav,
+main,
+.container,
+.max-w-7xl,
+.max-w-4xl,
+.max-w-6xl {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Ensure dynamic island doesn't cause overflow */
+#dynamic-island {
+  max-width: 100%;
+  overflow: hidden;
 }
 
