@@ -59,6 +59,11 @@ class BreathingManager {
     document.getElementById('start-breathing-btn').classList.add('hidden');
     document.getElementById('stop-breathing-btn').classList.remove('hidden');
     
+    // Starting a breathing exercise counts as a study activity for streaks
+    if (typeof Storage !== 'undefined') {
+      Storage.updateStreak();
+    }
+
     this.cycle();
   }
 

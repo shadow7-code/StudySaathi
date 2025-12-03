@@ -31,8 +31,8 @@
   <div id="nav-container"></div>
 
   <!-- Main content -->
-  <main class="md:ml-64 pt-16 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="md:ml-64 pt-10 md:pt-16 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
       <!-- Hero Section -->
       <div class="mb-8">
         <h1 id="welcome-greeting" class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Welcome back! 👋</h1>
@@ -40,7 +40,7 @@
       </div>
 
       <!-- Stats Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <!-- XP Card -->
         <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 tilt-hover">
           <div class="flex items-center justify-between mb-4">
@@ -99,109 +99,94 @@
       </div>
 
       <!-- All Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
         <!-- Task Manager -->
         <a href="tasks.html" class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
-          <div class="flex items-center justify-between mb-4">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Task Manager</h3>
-          <p class="text-white text-sm opacity-90">Organize and track your tasks with deadlines</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Task Manager</h3>
         </a>
 
         <!-- Study Timer -->
         <a href="timer.html" class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
-          <div class="flex items-center justify-between mb-4">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Pomodoro Timer</h3>
-          <p class="text-white text-sm opacity-90">Focus with 25-minute study sessions</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Study Timer</h3>
         </a>
 
         <!-- Breathing Exercises -->
         <a href="breathing.html" class="bg-gradient-to-br from-pink-500 to-pink-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
-          <div class="flex items-center justify-between mb-4">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Breathing Exercises</h3>
-          <p class="text-white text-sm opacity-90">Relax and recharge with guided breathing</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Breathing Exercises</h3>
         </a>
 
         <!-- Notes -->
         <a href="notes.html" class="bg-gradient-to-br from-green-500 to-green-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
-          <div class="flex items-center justify-between mb-4">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Notes</h3>
-          <p class="text-white text-sm opacity-90">Capture ideas and organize your thoughts</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Notes</h3>
         </a>
 
         <!-- Exam Countdown -->
-        <a href="exams.html" class="bg-gradient-to-br from-teal-500 to-teal-600 
-        rounded-3xl p-6 shadow-lg 
-        hover:shadow-2xl transition-all duration-300 
-        transform hover:scale-105 cursor-pointer group block
-        ">
-          <div class="flex items-center justify-between mb-4">
+        <a href="exams.html" class="bg-gradient-to-br from-teal-500 to-teal-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Exam Countdown</h3>
-          <p class="text-white text-sm opacity-90">Track upcoming exams and deadlines</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Exam Countdown</h3>
         </a>
 
         <!-- Analytics -->
-        <a href="analytics.html" class="bg-gradient-to-br from-indigo-500 to-indigo-600 
-        rounded-3xl p-6 shadow-lg 
-        hover:shadow-2xl transition-all duration-300 
-        transform hover:scale-105 cursor-pointer group block
-        ">
-          <div class="flex items-center justify-between mb-4">
+        <a href="analytics.html" class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Analytics</h3>
-          <p class="text-white text-sm opacity-90">View charts and detailed statistics</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Analytics</h3>
         </a>
 
         <!-- Chatbot -->
         <a href="chatbot.html" class="bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
-          <div class="flex items-center justify-between mb-4">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Study Assistant</h3>
-          <p class="text-white text-sm opacity-90">Get help and study tips</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Study Assistant</h3>
         </a>
 
         <!-- Settings -->
         <a href="settings.html" class="bg-gradient-to-br from-gray-500 to-gray-600 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group block">
-          <div class="flex items-center justify-between mb-4">
+          <div class="mb-4">
             <div class="w-14 h-14 rounded-2xl bg-white bg-opacity-20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -209,8 +194,7 @@
               </svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Settings</h3>
-          <p class="text-white text-sm opacity-90">Customize your experience</p>
+          <h3 class="text-sm sm:text-base font-semibold text-white">Settings</h3>
         </a>
       </div>
 
@@ -254,39 +238,33 @@
         
 
       <!-- Today Target -->
-      <div class="bg-gradient-to-br from-[#0f4c81]/80 to-[#3b82f6]/80 
-      rounded-2xl p-5 shadow-lg hover:shadow-2xl 
-      transition-all duration-300 transform hover:scale-[1.02] 
-      mb-6 border border-white/10 backdrop-blur-sm
-      
-      ">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-2xl font-bold text-white">Today's Target 🎯</h2>
-          <button onclick="showTargetModal()" class="px-4 py-2 bg-white bg-opacity-20 backdrop-blur-md text-white rounded-xl font-medium hover:bg-opacity-30 transition-all">
-            Edit
-          </button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-2xl p-4 text-center">
-            <div class="text-3xl font-bold text-white mb-1" id="target-theory">0</div>
-            <div class="text-sm text-white opacity-90">Theory Tasks</div>
+      <div class="bg-gradient-to-br from-[#0f4c81]/90 to-[#2563eb]/80 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] mb-8 border border-white/10 backdrop-blur-md">
+        <button id="today-target-toggle" onclick="showTargetModal()" class="w-full flex items-center justify-between text-left gap-4 group">
+          <div>
+            <p class="text-2xl md:text-3xl font-bold text-white leading-tight">Today's Target</p>
+            <p id="today-target-summary" class="text-sm md:text-base text-white/80 mt-1">
+              Tap to choose today's focus
+            </p>
           </div>
-          <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-2xl p-4 text-center">
-            <div class="text-3xl font-bold text-white mb-1" id="target-lab">0</div>
-            <div class="text-sm text-white opacity-90">Lab Tasks</div>
-          </div>
-          <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-2xl p-4 text-center">
-            <div class="text-3xl font-bold text-white mb-1" id="target-assignment">0</div>
-            <div class="text-sm text-white opacity-90">Assignments</div>
-          </div>
-        </div>
-        <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-2xl p-4">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-sm font-medium text-white opacity-90">Overall Progress</span>
-            <span id="target-progress-text" class="text-sm font-bold text-white">0%</span>
-          </div>
-          <div class="w-full bg-white bg-opacity-30 rounded-full h-3">
-            <div id="target-progress-bar" class="h-full bg-white rounded-full transition-all duration-500" style="width: 0%"></div>
+          <span id="today-target-chevron" class="flex-shrink-0 w-11 h-11 rounded-2xl bg-white/10 text-white/80 flex items-center justify-center transition-all duration-300 group-hover:bg-white/20">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+
+        <div id="today-target-selected" class="mt-6 space-y-3"></div>
+
+        <div id="today-target-panel" class="mt-6 hidden border-t border-white/10 pt-6">
+          <p class="text-sm text-white/80 mb-4">Pick a few pending tasks to spotlight today.</p>
+          <div id="today-target-task-options" class="space-y-3 max-h-64 overflow-y-auto pr-1"></div>
+          <div class="flex gap-3 mt-6">
+            <button id="today-target-cancel" class="flex-1 px-4 py-3 rounded-2xl border border-white/20 text-white/80 font-medium hover:bg-white/10 transition-colors">
+              Cancel
+            </button>
+            <button id="today-target-save" class="flex-1 px-4 py-3 rounded-2xl bg-white text-gray-900 font-semibold hover:bg-blue-50 transition-colors">
+              Save Focus
+            </button>
           </div>
         </div>
       </div>
@@ -310,105 +288,66 @@
             <div class="text-xs text-white opacity-90">Completion Rate</div>
           </div>
           <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-2xl p-4 text-center">
-            <div class="text-2xl font-bold text-white mb-1" id="total-tasks">0</div>
-            <div class="text-xs text-white opacity-90">Total Tasks</div>
+            <div class="text-2xl font-bold text-white mb-1" id="analytics-study-time">0m</div>
+            <div class="text-xs text-white opacity-90">Study Time</div>
           </div>
           <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-2xl p-4 text-center">
-            <div class="text-2xl font-bold text-white mb-1" id="completed-tasks">0</div>
-            <div class="text-xs text-white opacity-90">Completed</div>
+            <div class="text-2xl font-bold text-white mb-1" id="analytics-pending-tasks">0</div>
+            <div class="text-xs text-white opacity-90">Pending Tasks</div>
           </div>
           <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-2xl p-4 text-center">
             <div class="text-2xl font-bold text-white mb-1" id="productivity-score">0</div>
-            <div class="text-xs text-white opacity-90">Productivity Score</div>
+            <div class="text-xs text-white opacity-90">Focus Score</div>
           </div>
         </div>
 
-        <!-- Priority & Category Distribution -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Priority Distribution -->
-          <div>
-            <h3 class="text-lg font-semibold text-white mb-4">Priority Distribution</h3>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between p-3 rounded-xl bg-white bg-opacity-10 backdrop-blur-md">
-                <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                  <span class="text-sm font-medium text-white">High Priority</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-white" id="high-priority-tasks">0</span>
-                  <div class="w-20 h-2 bg-white bg-opacity-30 rounded-full overflow-hidden">
-                    <div id="high-priority-bar" class="h-full bg-red-400 rounded-full transition-all duration-500" style="width: 0%"></div>
-                  </div>
-                </div>
+        <!-- Focus Insights -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-6 border border-white/10">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm text-white/70 uppercase tracking-wide">Weekly Focus</p>
+                <p id="analytics-weekly-time" class="text-4xl font-bold text-white mt-2">0m</p>
               </div>
-              <div class="flex items-center justify-between p-3 rounded-xl bg-white bg-opacity-10 backdrop-blur-md">
-                <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                  <span class="text-sm font-medium text-white">Medium Priority</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-white" id="medium-priority-tasks">0</span>
-                  <div class="w-20 h-2 bg-white bg-opacity-30 rounded-full overflow-hidden">
-                    <div id="medium-priority-bar" class="h-full bg-yellow-400 rounded-full transition-all duration-500" style="width: 0%"></div>
-                  </div>
-                </div>
+              <div class="text-right">
+                <p class="text-sm text-white/70">Avg Session</p>
+                <p id="analytics-avg-session" class="text-2xl font-semibold text-white mt-1">0m</p>
               </div>
-              <div class="flex items-center justify-between p-3 rounded-xl bg-white bg-opacity-10 backdrop-blur-md">
-                <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                  <span class="text-sm font-medium text-white">Low Priority</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-white" id="low-priority-tasks">0</span>
-                  <div class="w-20 h-2 bg-white bg-opacity-30 rounded-full overflow-hidden">
-                    <div id="low-priority-bar" class="h-full bg-green-400 rounded-full transition-all duration-500" style="width: 0%"></div>
-                  </div>
-                </div>
+            </div>
+            <div class="mt-6">
+              <div class="flex justify-between text-xs text-white/60 mb-2">
+                <span>Goal · 10h this week</span>
+                <span id="analytics-goal-progress">0%</span>
+              </div>
+              <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+                <div id="analytics-goal-bar" class="h-full rounded-full bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-500 transition-all duration-500" style="width: 0%"></div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-6">
+              <div class="bg-white/5 rounded-2xl p-3 text-center">
+                <p class="text-xs text-white/60">Longest Streak</p>
+                <p id="analytics-streak" class="text-xl font-semibold text-white mt-1">0d</p>
+              </div>
+              <div class="bg-white/5 rounded-2xl p-3 text-center">
+                <p class="text-xs text-white/60">Today's Sessions</p>
+                <p id="analytics-today-sessions" class="text-xl font-semibold text-white mt-1">0</p>
+              </div>
+              <div class="bg-white/5 rounded-2xl p-3 text-center">
+                <p class="text-xs text-white/60">Focus Sessions</p>
+                <p id="analytics-focus-sessions" class="text-xl font-semibold text-white mt-1">0</p>
               </div>
             </div>
           </div>
 
-          <!-- Category Distribution -->
-          <div>
-            <h3 class="text-lg font-semibold text-white mb-4">Category Distribution</h3>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between p-3 rounded-xl bg-white bg-opacity-10 backdrop-blur-md">
-                <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 rounded-full bg-blue-400"></div>
-                  <span class="text-sm font-medium text-white">Theory</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-white" id="theory-tasks">0</span>
-                  <div class="w-20 h-2 bg-white bg-opacity-30 rounded-full overflow-hidden">
-                    <div id="theory-bar" class="h-full bg-blue-400 rounded-full transition-all duration-500" style="width: 0%"></div>
-                  </div>
-                </div>
+          <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-6 border border-white/10">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-white/70 uppercase tracking-wide">Pending Radar</p>
+                <p id="analytics-pending-count" class="text-3xl font-bold text-white mt-1">0 pending tasks</p>
               </div>
-              <div class="flex items-center justify-between p-3 rounded-xl bg-white bg-opacity-10 backdrop-blur-md">
-                <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                  <span class="text-sm font-medium text-white">Lab</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-white" id="lab-tasks">0</span>
-                  <div class="w-20 h-2 bg-white bg-opacity-30 rounded-full overflow-hidden">
-                    <div id="lab-bar" class="h-full bg-green-400 rounded-full transition-all duration-500" style="width: 0%"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3 rounded-xl bg-white bg-opacity-10 backdrop-blur-md">
-                <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 rounded-full bg-purple-400"></div>
-                  <span class="text-sm font-medium text-white">Assignment</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-sm font-bold text-white" id="assignment-tasks">0</span>
-                  <div class="w-20 h-2 bg-white bg-opacity-30 rounded-full overflow-hidden">
-                    <div id="assignment-bar" class="h-full bg-purple-400 rounded-full transition-all duration-500" style="width: 0%"></div>
-                  </div>
-                </div>
-              </div>
+              <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/10 text-white/70 border border-white/20">Auto curated</span>
             </div>
+            <div id="analytics-pending-list" class="mt-6 space-y-3"></div>
           </div>
         </div>
       </div>

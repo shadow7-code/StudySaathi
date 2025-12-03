@@ -79,12 +79,28 @@ class Storage {
 
   // Daily Streak
   static getDailyStreak() {
-    const streak = localStorage.getItem(this.keys.DAILY_STREAK);
-    return streak ? JSON.parse(streak) : {
+    const streakStr = localStorage.getItem(this.keys.DAILY_STREAK);
+    const streak = streakStr ? JSON.parse(streakStr) : {
       current: 0,
       longest: 0,
       lastDate: null
     };
+
+    // Auto-reset broken streaks when simply reading the value
+    const today = new Date().toDateString();
+    if (streak.lastDate && streak.lastDate !== today) {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toDateString();
+
+      // If last activity wasn't yesterday, streak is broken -> show 0
+      if (streak.lastDate !== yesterdayStr && streak.current !== 0) {
+        streak.current = 0;
+        localStorage.setItem(this.keys.DAILY_STREAK, JSON.stringify(streak));
+      }
+    }
+
+    return streak;
   }
 
   static updateStreak() {

@@ -30,7 +30,7 @@ const WeeklyGraph = ({ title = "Weekly Study Progress" }) => {
         
         const dayHistory = history.filter(session => {
           const sessionDate = new Date(session.date);
-          return sessionDate >= date && sessionDate < nextDate && session.mode === 'pomodoro';
+          return sessionDate >= date && sessionDate < nextDate && session.mode === 'study';
         });
         
         const minutes = dayHistory.reduce((total, session) => total + (session.duration / 60), 0);

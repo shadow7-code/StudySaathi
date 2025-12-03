@@ -478,6 +478,18 @@ button, a, input, textarea, select {
     max-width: 100vw;
     overflow-x: hidden;
   }
+
+  /* Hide scrollbars on mobile while keeping scroll behavior */
+  html,
+  body {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;    /* Firefox */
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
 }
 
 /* Feature card hover effects */

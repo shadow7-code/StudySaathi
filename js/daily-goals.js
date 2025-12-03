@@ -3,7 +3,7 @@ class DailyGoals {
   static getGoals() {
     const goals = localStorage.getItem('studysaathi_daily_goals');
     return goals ? JSON.parse(goals) : {
-      pomodoroSessions: 4,
+      studySessions: 4,
       tasksToComplete: 5,
       notesToCreate: 2,
       lastReset: new Date().toDateString()
@@ -22,7 +22,7 @@ class DailyGoals {
       // Reset daily goals
       goals.lastReset = today;
       goals.completed = {
-        pomodoroSessions: 0,
+        studySessions: 0,
         tasksCompleted: 0,
         notesCreated: 0
       };
@@ -41,7 +41,7 @@ class DailyGoals {
     const history = Storage.getTimerHistory();
     const todaySessions = history.filter(s => {
       const sessionDate = new Date(s.date).toDateString();
-      return sessionDate === today && s.mode === 'pomodoro';
+      return sessionDate === today && s.mode === 'study';
     }).length;
     
     const tasks = Storage.getTasks();
@@ -56,10 +56,10 @@ class DailyGoals {
     }).length;
     
     return {
-      pomodoro: {
+      study: {
         current: todaySessions,
-        target: goals.pomodoroSessions,
-        percentage: Math.min((todaySessions / goals.pomodoroSessions) * 100, 100)
+        target: goals.studySessions,
+        percentage: Math.min((todaySessions / goals.studySessions) * 100, 100)
       },
       tasks: {
         current: todayTasks,

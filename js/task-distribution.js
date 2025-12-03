@@ -2,138 +2,176 @@
 class TaskAnalytics {
   static updateDisplay() {
     const tasks = Storage.getTasks();
+    const stats = Storage.getStats();
+    const timerHistory = Storage.getTimerHistory();
+    const streak = Storage.getDailyStreak();
 
-    // Task completion stats
     const completed = tasks.filter(t => t.completed).length;
-    const pending = tasks.filter(t => !t.completed).length;
     const total = tasks.length;
+    const pending = total - completed;
 
-    // Priority distribution
-    const high = tasks.filter(t => t.priority === 'high').length;
-    const medium = tasks.filter(t => t.priority === 'medium').length;
-    const low = tasks.filter(t => t.priority === 'low').length;
-
-    // Category distribution (all 6 categories)
-    const theory = tasks.filter(t => t.category === 'theory').length;
-    const lab = tasks.filter(t => t.category === 'lab').length;
-    const assignment = tasks.filter(t => t.category === 'assignment').length;
-    const study = tasks.filter(t => t.category === 'study').length;
-    const project = tasks.filter(t => t.category === 'project').length;
-    const extra = tasks.filter(t => t.category === 'extra').length;
-
-    // Update completion rate
     const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
-    const completionEl = document.getElementById('completion-rate');
-    if (completionEl) completionEl.textContent = `${completionRate}%`;
+    this.setText('completion-rate', `${completionRate}%`);
 
-    // Update total tasks
-    const totalTasksEl = document.getElementById('total-tasks');
-    if (totalTasksEl) totalTasksEl.textContent = total;
+    this.setText('analytics-study-time', this.formatDuration(stats.totalStudyTime || 0));
+    this.setText('analytics-pending-tasks', pending);
+    this.setText('analytics-focus-sessions', stats.sessionsCompleted || 0);
 
-    // Update completed tasks
-    const completedTasksEl = document.getElementById('completed-tasks');
-    if (completedTasksEl) completedTasksEl.textContent = completed;
+    const productivityScore = this.calculateProductivityScore(tasks, stats);
+    this.setText('productivity-score', productivityScore);
 
-    // Update priority stats
-    const highTasksEl = document.getElementById('high-priority-tasks');
-    const mediumTasksEl = document.getElementById('medium-priority-tasks');
-    const lowTasksEl = document.getElementById('low-priority-tasks');
+    const weeklyStats = this.getWeeklyStats(timerHistory);
+    this.setText('analytics-weekly-time', this.formatDuration(weeklyStats.weeklyMinutes));
+    this.setText('analytics-avg-session', weeklyStats.avgSessionMinutes > 0 ? `${weeklyStats.avgSessionMinutes}m` : '0m');
+    this.setText('analytics-goal-progress', `${weeklyStats.goalProgress}%`);
+    this.setBarWidth('analytics-goal-bar', weeklyStats.goalProgress);
+    this.setText('analytics-today-sessions', weeklyStats.todaySessions);
+    this.setText('analytics-streak', `${streak.current || 0}d`);
 
-    if (highTasksEl) highTasksEl.textContent = high;
-    if (mediumTasksEl) mediumTasksEl.textContent = medium;
-    if (lowTasksEl) lowTasksEl.textContent = low;
-
-    // Update category stats (all 6 categories)
-    const theoryTasksEl = document.getElementById('theory-tasks');
-    const labTasksEl = document.getElementById('lab-tasks');
-    const assignmentTasksEl = document.getElementById('assignment-tasks');
-    const studyTasksEl = document.getElementById('study-tasks');
-    const projectTasksEl = document.getElementById('project-tasks');
-    const extraTasksEl = document.getElementById('extra-tasks');
-
-    if (theoryTasksEl) theoryTasksEl.textContent = theory;
-    if (labTasksEl) labTasksEl.textContent = lab;
-    if (assignmentTasksEl) assignmentTasksEl.textContent = assignment;
-    if (studyTasksEl) studyTasksEl.textContent = study;
-    if (projectTasksEl) projectTasksEl.textContent = project;
-    if (extraTasksEl) extraTasksEl.textContent = extra;
-
-    // Calculate productivity score (simple algorithm)
-    const productivityScore = this.calculateProductivityScore(tasks);
-    const scoreEl = document.getElementById('productivity-score');
-    if (scoreEl) scoreEl.textContent = productivityScore;
-
-    // Update progress bars
-    this.updateProgressBars(total, completed, high, medium, low, theory, lab, assignment, study, project, extra);
+    this.renderPendingList(tasks);
   }
 
-  static calculateProductivityScore(tasks) {
+  static setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = value;
+    }
+  }
+
+  static setBarWidth(id, value) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.width = `${value}%`;
+    }
+  }
+
+  static formatDuration(minutes) {
+    if (!minutes || minutes <= 0) return '0m';
+    if (minutes >= 60) {
+      const hours = minutes / 60;
+      return hours >= 10 ? `${Math.round(hours)}h` : `${hours.toFixed(1)}h`;
+    }
+    return `${Math.round(minutes)}m`;
+  }
+
+  static getWeeklyStats(history) {
+    const today = new Date();
+    const weekStart = new Date();
+    weekStart.setDate(today.getDate() - 6);
+
+    let weeklySeconds = 0;
+    let sessionsThisWeek = 0;
+    let sessionsToday = 0;
+
+    history.forEach(session => {
+      if (session.mode !== 'study') return;
+      const sessionDate = new Date(session.date);
+      if (sessionDate >= weekStart) {
+        weeklySeconds += session.duration || 0;
+        sessionsThisWeek += 1;
+        if (sessionDate.toDateString() === today.toDateString()) {
+          sessionsToday += 1;
+        }
+      }
+    });
+
+    const weeklyMinutes = Math.round(weeklySeconds / 60);
+    const avgSessionMinutes = sessionsThisWeek > 0 ? Math.max(1, Math.round((weeklySeconds / sessionsThisWeek) / 60)) : 0;
+    const goalHours = 10;
+    const weeklyHours = weeklyMinutes / 60;
+    const goalProgress = goalHours > 0 ? Math.min(Math.round((weeklyHours / goalHours) * 100), 100) : 0;
+
+    return {
+      weeklyMinutes,
+      avgSessionMinutes,
+      todaySessions: sessionsToday,
+      goalProgress
+    };
+  }
+
+  static renderPendingList(tasks) {
+    const listEl = document.getElementById('analytics-pending-list');
+    const countEl = document.getElementById('analytics-pending-count');
+    if (!listEl) return;
+
+    const pendingTasks = tasks.filter(t => !t.completed);
+    if (countEl) {
+      const label = pendingTasks.length === 1 ? 'pending task' : 'pending tasks';
+      countEl.textContent = `${pendingTasks.length} ${label}`;
+    }
+
+    if (pendingTasks.length === 0) {
+      listEl.innerHTML = `
+        <div class="p-4 rounded-2xl bg-white/5 text-white/80">
+          <p class="text-sm font-medium">You're all caught up 🎉</p>
+          <p class="text-xs text-white/60 mt-1">Add new tasks or pick a fresh focus.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const priorityOrder = { high: 0, medium: 1, low: 2 };
+    const topTasks = pendingTasks
+      .sort((a, b) => {
+        const dateA = a.dueDate ? new Date(a.dueDate) : null;
+        const dateB = b.dueDate ? new Date(b.dueDate) : null;
+        if (dateA && dateB) return dateA - dateB;
+        if (dateA) return -1;
+        if (dateB) return 1;
+        return (priorityOrder[a.priority] ?? 2) - (priorityOrder[b.priority] ?? 2);
+      })
+      .slice(0, 3);
+
+    listEl.innerHTML = topTasks.map(task => {
+      const dueLabel = task.dueDate
+        ? `Due ${UI.formatDate(task.dueDate)}`
+        : `Added ${UI.getRelativeTime(task.createdAt)}`;
+      const priorityLabel = (task.priority || 'medium');
+      const pillClass = this.getPriorityBadge(priorityLabel);
+      return `
+        <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
+          <div>
+            <p class="text-sm font-semibold text-white">${task.title}</p>
+            <p class="text-xs text-white/70">${dueLabel}</p>
+          </div>
+          <span class="${pillClass}">${priorityLabel.charAt(0).toUpperCase() + priorityLabel.slice(1)}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  static getPriorityBadge(priority = 'medium') {
+    const map = {
+      high: 'px-3 py-1 rounded-full text-xs font-semibold bg-red-500/20 text-red-100 border border-red-400/30',
+      medium: 'px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400/20 text-yellow-100 border border-yellow-300/30',
+      low: 'px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-100 border border-green-300/30'
+    };
+    return map[priority] || map.medium;
+  }
+
+  static calculateProductivityScore(tasks, stats = {}) {
     if (tasks.length === 0) return 0;
 
     let score = 0;
     const completed = tasks.filter(t => t.completed).length;
     const completionRate = completed / tasks.length;
-
-    // Base score from completion rate
     score += completionRate * 50;
 
-    // Bonus for high-priority tasks completion
     const highPriorityCompleted = tasks.filter(t => t.priority === 'high' && t.completed).length;
     const totalHigh = tasks.filter(t => t.priority === 'high').length;
     if (totalHigh > 0) {
-      score += (highPriorityCompleted / totalHigh) * 30;
+      score += (highPriorityCompleted / totalHigh) * 25;
     }
 
-    // Bonus for balanced workload across all 6 categories
-    const theoryTasks = tasks.filter(t => t.category === 'theory').length;
-    const labTasks = tasks.filter(t => t.category === 'lab').length;
-    const assignmentTasks = tasks.filter(t => t.category === 'assignment').length;
-    const studyTasks = tasks.filter(t => t.category === 'study').length;
-    const projectTasks = tasks.filter(t => t.category === 'project').length;
-    const extraTasks = tasks.filter(t => t.category === 'extra').length;
+    const categories = ['theory', 'lab', 'assignment', 'study', 'project', 'extra'];
+    const usedCategories = categories.filter(category => tasks.some(task => task.category === category));
+    score += Math.min(usedCategories.length * 4, 20);
 
-    const categories = [theoryTasks, labTasks, assignmentTasks, studyTasks, projectTasks, extraTasks].filter(c => c > 0).length;
-    score += categories * 5; // Bonus for using multiple categories
+    const sessions = stats.sessionsCompleted || 0;
+    score += Math.min(sessions, 20);
 
     return Math.min(Math.round(score), 100);
   }
-
-  static updateProgressBars(total, completed, high, medium, low, theory, lab, assignment, study, project, extra) {
-    // Completion progress bar
-    const completionBar = document.getElementById('completion-progress-bar');
-    if (completionBar && total > 0) {
-      const completionPercent = (completed / total) * 100;
-      completionBar.style.width = `${completionPercent}%`;
-    }
-
-    // Priority distribution bars
-    const totalPriority = high + medium + low;
-    if (totalPriority > 0) {
-      const highBar = document.getElementById('high-priority-bar');
-      const mediumBar = document.getElementById('medium-priority-bar');
-      const lowBar = document.getElementById('low-priority-bar');
-
-      if (highBar) highBar.style.width = `${(high / totalPriority) * 100}%`;
-      if (mediumBar) mediumBar.style.width = `${(medium / totalPriority) * 100}%`;
-      if (lowBar) lowBar.style.width = `${(low / totalPriority) * 100}%`;
-    }
-
-    // Category distribution bars (all 6 categories)
-    const totalCategory = theory + lab + assignment + study + project + extra;
-    if (totalCategory > 0) {
-      const theoryBar = document.getElementById('theory-bar');
-      const labBar = document.getElementById('lab-bar');
-      const assignmentBar = document.getElementById('assignment-bar');
-      const studyBar = document.getElementById('study-bar');
-      const projectBar = document.getElementById('project-bar');
-      const extraBar = document.getElementById('extra-bar');
-
-      if (theoryBar) theoryBar.style.width = `${(theory / totalCategory) * 100}%`;
-      if (labBar) labBar.style.width = `${(lab / totalCategory) * 100}%`;
-      if (assignmentBar) assignmentBar.style.width = `${(assignment / totalCategory) * 100}%`;
-      if (studyBar) studyBar.style.width = `${(study / totalCategory) * 100}%`;
-      if (projectBar) projectBar.style.width = `${(project / totalCategory) * 100}%`;
-      if (extraBar) extraBar.style.width = `${(extra / totalCategory) * 100}%`;
-    }
-  }
 }
+
+

@@ -37,7 +37,7 @@ function getStudyTimeData() {
     let total = 0;
 
     history.forEach(s => {
-      if (s.mode === "pomodoro" && s.date) {
+      if (s.mode === "study" && s.date) {
         const sessionDate = new Date(s.date);
         if (sessionDate >= start && sessionDate < end) {
           const duration = Number(s.duration) || 0;
@@ -82,7 +82,7 @@ function getXPData() {
     data: days.map((_, i) => {
       const { start, end } = getDateRange(6 - i);
       return history.filter(s =>
-        s.mode === "pomodoro" &&
+        s.mode === "study" &&
         new Date(s.date) >= start &&
         new Date(s.date) < end
       ).length * 25;
@@ -153,7 +153,7 @@ function updateActivityTimeline() {
   });
 
   (JSON.parse(localStorage.getItem("timerHistory")) || []).forEach(s => {
-    if (s.mode === "pomodoro") items.push({ icon: "⏱️", text: "Pomodoro", date: s.date });
+    if (s.mode === "study") items.push({ icon: "⏱️", text: "Study Session", date: s.date });
   });
 
   container.innerHTML = items.length

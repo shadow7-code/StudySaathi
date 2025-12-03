@@ -10,8 +10,8 @@ class ChatbotManager {
         `Hey ${userName}! Let's make today productive! 💪`
       ],
       focus: [
-        'Here are some focus tips: 1) Use the Pomodoro technique (25 min study, 5 min break), 2) Remove distractions, 3) Find a quiet space, 4) Take deep breaths before starting. Try the breathing exercises! 🧘',
-        'To stay focused: Break your work into smaller tasks, use the timer feature, avoid multitasking, and take regular breaks. The timer page has built-in Pomodoro sessions! ⏱️',
+        'Here are some focus tips: 1) Use the study timer to set focused study sessions, 2) Remove distractions, 3) Find a quiet space, 4) Take deep breaths before starting. Try the breathing exercises! 🧘',
+        'To stay focused: Break your work into smaller tasks, use the study timer feature, avoid multitasking, and take regular breaks. Set your study time and stay focused! ⏱️',
         'Focus better by: Creating a study schedule, eliminating phone distractions, using the study timer, and practicing mindfulness with breathing exercises. You\'ve got this! 💪'
       ],
       motivation: [

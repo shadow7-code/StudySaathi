@@ -91,6 +91,11 @@ class ExamManager {
     this.closeModal();
     this.renderExams();
     UI.showToast('Exam saved!', 'success');
+
+    // Adding/updating an exam is also a study activity -> update streak
+    if (typeof Storage !== 'undefined') {
+      Storage.updateStreak();
+    }
   }
 
   deleteExam() {

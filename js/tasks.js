@@ -2,7 +2,7 @@
 class TaskManager {
   constructor() {
     this.tasks = Storage.getTasks();
-    this.filter = 'all'; // all, active, completed
+    this.filter = 'active'; // active, completed
     this.init();
   }
 
@@ -172,16 +172,36 @@ class TaskManager {
       return;
     }
 
+    // Auto-detect priority based on due date when adding task
+    let finalPriority = priorityInput.value || 'medium';
+    const dueDate = dueDateInput.value || null;
+    if (dueDate) {
+      const now = new Date();
+      const deadline = new Date(dueDate);
+      const diff = deadline - now;
+      const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      
+      // Auto-detect priority based on time remaining
+      if (daysLeft < 2) {
+        finalPriority = 'high';
+      } else if (daysLeft < 4) {
+        finalPriority = 'medium';
+      } else {
+        finalPriority = 'low';
+      }
+    }
+
     const task = {
       id: Date.now().toString(),
       title,
       description: descriptionInput.value.trim(),
-      priority: priorityInput.value || 'medium',
-      dueDate: dueDateInput.value || null,
+      priority: finalPriority,
+      dueDate: dueDate,
       category: categoryInput ? categoryInput.value : 'theory',
       completed: false,
       createdAt: new Date().toISOString(),
-      completedAt: null
+      completedAt: null,
+      xpAwarded: false
     };
 
     this.tasks.unshift(task);
@@ -199,6 +219,14 @@ class TaskManager {
     this.renderTasks();
     UI.showToast('Task added successfully!', 'success');
     Storage.addXP(5);
+    // Any study-related activity should contribute to streak
+    Storage.updateStreak();
+
+    // Close the form after adding task
+    const formContainer = document.getElementById('task-form-container');
+    if (formContainer) {
+      formContainer.classList.add('hidden');
+    }
 
     // Update Today Target display
     if (typeof TodayTarget !== 'undefined') {
@@ -225,10 +253,37 @@ class TaskManager {
   toggleTask(id) {
     const task = this.tasks.find(t => t.id === id);
     if (task) {
+      const wasCompleted = task.completed;
+      
+      // When completing a task, freeze the current effective priority BEFORE marking as completed
+      if (!wasCompleted && !task.completed) {
+        // Get the effective priority while task is still incomplete
+        let currentEffectivePriority = task.priority;
+        if (task.dueDate) {
+          const now = new Date();
+          const deadline = new Date(task.dueDate);
+          const diff = deadline - now;
+          const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+          
+          // Calculate current effective priority
+          if (daysLeft < 2) {
+            currentEffectivePriority = 'high';
+          } else if (daysLeft < 4) {
+            currentEffectivePriority = 'medium';
+          } else {
+            currentEffectivePriority = 'low';
+          }
+        }
+        // Freeze the priority by saving it
+        task.priority = currentEffectivePriority;
+      }
+      
       task.completed = !task.completed;
       task.completedAt = task.completed ? new Date().toISOString() : null;
       
-      if (task.completed) {
+      // Award XP and stats only the first time a task is completed
+      if (!wasCompleted && task.completed && !task.xpAwarded) {
+        task.xpAwarded = true;
         Storage.addXP(10);
         Storage.updateStats({ tasksCompleted: (Storage.getStats().tasksCompleted || 0) + 1 });
         UI.showToast('Task completed! +10 XP', 'success');
@@ -261,7 +316,7 @@ class TaskManager {
           UI.showAchievement('Century Club! 💯', '100 tasks completed! Incredible dedication!');
         }
         
-        // Update streak
+        // Update streak for genuine completion
         Storage.updateStreak();
       }
       
@@ -271,10 +326,10 @@ class TaskManager {
   }
 
   getEffectivePriority(task) {
-    // If task is completed, use original priority
+    // If task is completed, always use the saved priority (fixed)
     if (task.completed) return task.priority;
     
-    // If no due date, use original priority
+    // For incomplete tasks, dynamically calculate priority based on due date
     if (!task.dueDate) return task.priority;
     
     const now = new Date();
@@ -282,7 +337,7 @@ class TaskManager {
     const diff = deadline - now;
     const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
     
-    // Auto-detect priority based on time
+    // Auto-update priority based on time remaining (only for incomplete tasks)
     if (daysLeft < 2) {
       return 'high';
     } else if (daysLeft < 4) {
@@ -299,7 +354,9 @@ class TaskManager {
     } else if (this.filter === 'completed') {
       filtered = this.tasks.filter(t => t.completed);
     } else {
-      filtered = this.tasks;
+      // Default to active if filter is invalid
+      this.filter = 'active';
+      filtered = this.tasks.filter(t => !t.completed);
     }
     
     // Sort by completion status first (incomplete above, completed below), then by effective priority
@@ -405,7 +462,7 @@ class TaskManager {
 
     container.innerHTML = filteredTasks.map(task => {
       const deadlineStatus = !task.completed ? this.getDeadlineStatus(task.dueDate) : null;
-      const effectivePriority = this.getEffectivePriority(task);
+      const effectivePriority = this.getEffectivePriority(task); // Dynamic for incomplete, fixed for completed
       const priorityStyle = this.getPriorityBorderAndGradient(effectivePriority);
       const deadlineStatusColor = deadlineStatus ? this.getDeadlineStatusColor(effectivePriority) : null;
       
